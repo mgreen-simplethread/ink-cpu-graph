@@ -16,6 +16,8 @@
   },
   "dependencies": {
     "ink": "^2.0.5",
-    "react": "^16.8.4"
+    "ink-color-pipe": "^0.1.0",
+    "react": "^16.8.4",
+    "systeminformation": "^4.1.1"
   }
 }
