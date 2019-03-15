@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import si from 'systeminformation';
+import { render, Color, Text, Box } from 'ink';
 import ColorPipe from 'ink-color-pipe';
 import { useInterval } from './lib/hooks';
-import { render, Color, Text, Box } from 'ink';
+import LineChart from './components/LineChart';
 
 function Demo() {
   const [cpu, setCpu] = useState(0.0);
+  const [cpuHistory, setCpuHistory] = useState([]);
 
   useInterval(async () => {
     const { currentload } = await si.currentLoad();
     setCpu(currentload);
+    setCpuHistory([...cpuHistory, currentload]);
   }, 500);
 
   return (
@@ -20,6 +23,12 @@ function Demo() {
         </Box>
 
         {cpu}
+      </Box>
+      <Box>
+        <Box width={14}>
+          <ColorPipe style="bold.blue">CPU Graph:</ColorPipe>
+        </Box>
+        <LineChart data={cpuHistory} />
       </Box>
     </Box>
   );

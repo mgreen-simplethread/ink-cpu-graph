@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "babel src --out-dir=build"
+    "build": "babel src --out-dir=build",
+    "start": "node build/demo.js"
   },
   "author": "",
   "license": "ISC",
@@ -15,6 +16,7 @@
     "@babel/preset-react": "^7.0.0"
   },
   "dependencies": {
+    "asciichart": "^1.5.7",
     "ink": "^2.0.5",
     "ink-color-pipe": "^0.1.0",
     "react": "^16.8.4",
