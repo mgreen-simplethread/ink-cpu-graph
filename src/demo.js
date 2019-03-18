@@ -4,15 +4,16 @@ import { render, Color, Text, Box } from 'ink';
 import ColorPipe from 'ink-color-pipe';
 import { useInterval } from './lib/hooks';
 import LineChart from './components/LineChart';
+import { appendCapped } from './lib/utils';
 
-function Demo() {
+function Demo({ historyLimit = 30 }) {
   const [cpu, setCpu] = useState(0.0);
   const [cpuHistory, setCpuHistory] = useState([]);
 
   useInterval(async () => {
     const { currentload } = await si.currentLoad();
     setCpu(currentload);
-    setCpuHistory([...cpuHistory, currentload]);
+    setCpuHistory(appendCapped(cpuHistory, cpu, historyLimit));
   }, 500);
 
   return (
@@ -24,12 +25,8 @@ function Demo() {
 
         {cpu}
       </Box>
-      <Box>
-        <Box width={14}>
-          <ColorPipe style="bold.blue">CPU Graph:</ColorPipe>
-        </Box>
-        <LineChart data={cpuHistory} />
-      </Box>
+
+      <LineChart data={cpuHistory} />
     </Box>
   );
 }
